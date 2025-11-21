@@ -13,7 +13,7 @@ export default function App() {
             <FlatList
                 ListHeaderComponent={() => (
                     <View className="flex-row w-full px-5 my-5 flex-between">
-                        <View className=" flex-start">
+                        <View className="flex-col w-1/2 flex-start gap-y-1">
                             <Text className="">Deliver To</Text>
                             <TouchableOpacity className=" flex-center flex-row gap-x-1 mt-0.5">
                                 <Text className=" small-bold text-primary">Croatia</Text>

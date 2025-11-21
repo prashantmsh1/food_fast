@@ -34,8 +34,10 @@ const burgers = [
         title: "Hamburger",
         subtitle: "Chicken Burger",
         rating: 4.6,
+
         image: require("../../assets/images/food/burger-chicken.png"),
         price: 10.99,
+
         description:
             "Our Chicken Burger features a crispy, golden-brown chicken breast fillet, topped with fresh lettuce and creamy mayonnaise, all served on a soft, toasted bun.",
         spicy: 0.5,
@@ -45,6 +47,7 @@ const burgers = [
         title: "Hamburger",
         subtitle: "Fried Chicken Burger",
         rating: 4.5,
+
         image: require("../../assets/images/food/burger-chicken.png"), // Reusing chicken image for now
         price: 11.49,
         description:

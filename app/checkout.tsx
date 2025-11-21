@@ -15,7 +15,7 @@ const Checkout = () => {
                 <TouchableOpacity onPress={() => router.back()}>
                     <Image source={images.arrowBack} className="w-5 h-5" resizeMode="contain" />
                 </TouchableOpacity>
-                <Text className="font-quicksand-bold text-xl text-black">Checkout</Text>
+                <Text className="text-xl text-black font-quicksand-bold">Checkout</Text>
                 <View className="relative">
                     <Image
                         source={images.bag}
@@ -23,14 +23,14 @@ const Checkout = () => {
                         resizeMode="contain"
                         tintColor="black"
                     />
-                    <View className="absolute -top-1 -right-1 bg-primary-green w-4 h-4 rounded-full items-center justify-center">
+                    <View className="absolute items-center justify-center w-4 h-4 rounded-full -top-1 -right-1 bg-primary-green">
                         <Text className="text-white text-[10px] font-bold">02</Text>
                     </View>
                 </View>
             </View>
 
             <ScrollView className="flex-1 px-5">
-                <Text className="font-quicksand-bold text-lg text-black mb-4">Shipping to</Text>
+                <Text className="mb-4 text-lg text-black font-quicksand-bold">Shipping to</Text>
                 <AddressCard
                     type="Home"
                     phone="(875) 876-785"
@@ -44,7 +44,7 @@ const Checkout = () => {
                     isSelected={false}
                 />
 
-                <Text className="font-quicksand-bold text-lg text-black mt-6 mb-4">
+                <Text className="mt-6 mb-4 text-lg text-black font-quicksand-bold">
                     Payment Method
                 </Text>
                 <PaymentOption
@@ -68,24 +68,24 @@ const Checkout = () => {
                     isSelected={false}
                 />
 
-                <View className="mt-8 space-y-3 mb-8">
+                <View className="mt-8 mb-8 space-y-3">
                     <View className="flex-row justify-between">
-                        <Text className="font-quicksand-bold text-lg text-black">Sub total</Text>
-                        <Text className="font-quicksand-bold text-lg text-black">$25.00</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">Sub total</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">$25.00</Text>
                     </View>
-                    <View className="border-b border-dashed border-gray-300 my-2" />
+                    <View className="my-2 border-b border-gray-300 border-dashed" />
                     <View className="flex-row justify-between">
-                        <Text className="font-quicksand-bold text-lg text-black">Total</Text>
-                        <Text className="font-quicksand-bold text-lg text-black">$25.00</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">Total</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">$25.00</Text>
                     </View>
                 </View>
             </ScrollView>
 
             <View className="px-5 pb-8">
                 <TouchableOpacity
-                    className="bg-primary-green rounded-full py-4 items-center"
+                    className="items-center py-4 rounded-full bg-primary-green"
                     onPress={() => router.push("/")}>
-                    <Text className="font-quicksand-bold text-white text-lg">Place to Order</Text>
+                    <Text className="text-lg text-white font-quicksand-bold">Place to Order</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

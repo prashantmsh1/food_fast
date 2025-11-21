@@ -1,6 +1,7 @@
-import CartItem from "@/components/cart/CartItem";
+import CartItemComponent from "@/components/cart/CartItem";
 import Header from "@/components/ui/Header";
 import { images } from "@/constants";
+import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -8,13 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Cart = () => {
     const router = useRouter();
-
+    const { items } = useCartStore();
     // Mock data
-    const cartItems = [
-        { id: 1, title: "Beef Pizza", price: 12.0, image: images.pizzaOne, quantity: 2 },
-        { id: 2, title: "Egg Burger", price: 11.0, image: images.burgerOne, quantity: 2 },
-        { id: 3, title: "Cucumber Salad", price: 12.0, image: images.salad, quantity: 2 },
-    ];
+    const cartItems = items;
 
     return (
         <SafeAreaView className="flex-1 bg-white">
@@ -28,48 +25,49 @@ const Cart = () => {
 
             <ScrollView className="flex-1 px-5 pt-2">
                 {cartItems.map((item) => (
-                    <CartItem
+                    <CartItemComponent
                         key={item.id}
                         title={item.title}
                         price={item.price}
                         image={item.image}
                         quantity={item.quantity}
+                        item={item}
                     />
                 ))}
 
-                <View className="flex-row items-center bg-white border border-gray-100 rounded-full px-4 py-2 mt-4 mb-6 shadow-sm">
+                <View className="flex-row items-center px-4 py-2 mt-4 mb-6 bg-white border border-gray-100 rounded-full shadow-sm">
                     <Image source={images.search} className="w-5 h-5 mr-2" tintColor="#CDCDE0" />
                     <TextInput
                         placeholder="Promo Code"
-                        className="flex-1 font-quicksand text-base text-black"
+                        className="flex-1 text-base text-black font-quicksand"
                         placeholderTextColor="#CDCDE0"
                     />
-                    <TouchableOpacity className="bg-primary-red rounded-full px-6 py-2">
-                        <Text className="font-quicksand-bold text-white">Apply</Text>
+                    <TouchableOpacity className="px-6 py-2 rounded-full bg-primary-red">
+                        <Text className="text-white font-quicksand-bold">Apply</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View className="space-y-3 mb-8">
+                <View className="mb-8 space-y-3">
                     <View className="flex-row justify-between">
-                        <Text className="font-quicksand-bold text-black">Subtotal</Text>
-                        <Text className="font-quicksand-bold text-black">$70.00</Text>
+                        <Text className="text-black font-quicksand-bold">Subtotal</Text>
+                        <Text className="text-black font-quicksand-bold">$70.00</Text>
                     </View>
-                    <View className="flex-row justify-between border-b border-gray-100 pb-3">
-                        <Text className="font-quicksand-bold text-black">Delivery</Text>
-                        <Text className="font-quicksand-bold text-black">$3.50</Text>
+                    <View className="flex-row justify-between pb-3 border-b border-gray-100">
+                        <Text className="text-black font-quicksand-bold">Delivery</Text>
+                        <Text className="text-black font-quicksand-bold">$3.50</Text>
                     </View>
                     <View className="flex-row justify-between pt-2">
-                        <Text className="font-quicksand-bold text-lg text-black">Total</Text>
-                        <Text className="font-quicksand-bold text-lg text-black">$73.50</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">Total</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">$73.50</Text>
                     </View>
                 </View>
             </ScrollView>
 
             <View className="px-5 pb-8">
                 <TouchableOpacity
-                    className="bg-primary-green rounded-full py-4 items-center"
+                    className="items-center py-4 rounded-full bg-primary-green"
                     onPress={() => router.push("/checkout")}>
-                    <Text className="font-quicksand-bold text-white text-lg">CHECK OUT</Text>
+                    <Text className="text-lg text-white font-quicksand-bold">CHECK OUT</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

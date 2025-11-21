@@ -1,4 +1,5 @@
 import { images } from "@/constants";
+import { CartItem, useCartStore } from "@/store/cartStore";
 import React from "react";
 import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from "react-native";
 
@@ -7,27 +8,29 @@ interface CartItemProps {
     price: number;
     image: ImageSourcePropType;
     quantity: number;
+    item: CartItem;
 }
 
-const CartItem = ({ title, price, image, quantity }: CartItemProps) => {
+const CartItemComponent = ({ title, price, image, quantity, item }: CartItemProps) => {
+    const { addItem, removeItem } = useCartStore();
     return (
-        <View className="flex-row items-center bg-white p-3 mb-4 rounded-2xl shadow-sm">
-            <Image source={image} className="w-16 h-16 rounded-full mr-4" resizeMode="contain" />
+        <View className="flex-row items-center p-3 mb-4 bg-white shadow-sm rounded-2xl">
+            <Image source={image} className="w-16 h-16 mr-4 rounded-full" resizeMode="contain" />
             <View className="flex-1">
-                <Text className="font-quicksand-bold text-base text-black mb-1">{title}</Text>
-                <Text className="font-quicksand-bold text-sm text-black">${price.toFixed(2)}</Text>
+                <Text className="mb-1 text-base text-black font-quicksand-bold">{title}</Text>
+                <Text className="text-sm text-black font-quicksand-bold">${price.toFixed(2)}</Text>
             </View>
-            <View className="flex-row items-center bg-primary-green rounded-full px-2 py-1">
-                <TouchableOpacity className="p-1">
-                    <Image source={images.minus} className="w-3 h-3" tintColor="white" />
+            <View className="flex-row items-center px-2 py-1 rounded-full bg-primary-green">
+                <TouchableOpacity onPress={() => removeItem(item.id)} className="p-1">
+                    <Image source={images.minus} className="w-6 " />
                 </TouchableOpacity>
-                <Text className="font-quicksand-bold text-white text-sm mx-2">{quantity}</Text>
-                <TouchableOpacity className="p-1">
-                    <Image source={images.plus} className="w-3 h-3" tintColor="white" />
+                <Text className="mx-2 text-gray-50 text-lg font-quicksand-bold">{quantity}</Text>
+                <TouchableOpacity onPress={() => addItem(item)} className="p-1">
+                    <Image source={images.plus} className=" size-6" />
                 </TouchableOpacity>
             </View>
         </View>
     );
 };
 
-export default CartItem;
+export default CartItemComponent;
