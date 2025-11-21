@@ -1,11 +1,13 @@
 import CartButton from "@/components/CartButton";
 import { images, offers } from "@/constants";
 import cn from "clsx";
+import { useRouter } from "expo-router";
 import { Fragment } from "react";
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
+    const router = useRouter();
     return (
         <SafeAreaView className="flex-1 bg-white-100">
             <FlatList
@@ -38,7 +40,8 @@ export default function App() {
                                 )}
                                 style={{
                                     backgroundColor: item.color,
-                                }}>
+                                }}
+                                onPress={() => router.push("/product/1")}>
                                 {({ pressed }) => (
                                     <Fragment>
                                         <View className="w-2/5">

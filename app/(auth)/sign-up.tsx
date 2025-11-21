@@ -1,115 +1,112 @@
 import { Link, router } from "expo-router";
-import LottieView from "lottie-react-native";
 import { useState } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert, Image, ScrollView, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 
 const SignUp = () => {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const [form, setForm] = useState({
+        username: "",
+        mobile: "",
+        password: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
 
-  const submit = async () => {
-    if (!form.username || !form.email || !form.password) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
-    setIsSubmitting(true);
-    // TODO: Implement sign up logic
-    setTimeout(() => {
-        setIsSubmitting(false);
-        router.replace("/(tabs)/home");
-    }, 1000);
-  };
+    const submit = async () => {
+        if (!form.username || !form.mobile || !form.password) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+        setIsSubmitting(true);
+        // TODO: Implement sign up logic
+        setTimeout(() => {
+            setIsSubmitting(false);
+            router.replace("/(tabs)");
+        }, 1000);
+    };
 
-  return (
-    <SafeAreaView className="bg-white h-full">
-      <ScrollView>
-        <View className="w-full justify-center min-h-[85vh] px-4 my-6">
-          <View className="items-center mb-6">
-            <LottieView
-                source={require("../../assets/animations/welcome.json")}
-                autoPlay
-                loop
-                style={{ width: 150, height: 150 }}
-              />
-            <Text className="text-3xl text-dark-100 font-quicksand-bold mt-4">
-              Sign Up
-            </Text>
-             <Text className="text-base text-gray-100 font-quicksand-medium text-center mt-2">
-              Create an account to start ordering
-            </Text>
-          </View>
+    return (
+        <SafeAreaView className="h-full bg-white">
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View className="w-full flex justify-center min-h-[85vh] px-6 my-6">
+                    <View className="items-center mb-10">
+                        <Image
+                            source={require("../../assets/images/auth-register.png")}
+                            resizeMode="contain"
+                            className="w-[280px] h-[280px]"
+                        />
+                    </View>
 
-          <FormField
-            title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
-            otherStyles="mt-10"
-            placeholder="Enter your username"
-          />
+                    <View className="mb-8">
+                        <Text className="mb-2 text-3xl text-navy font-quicksand-bold">
+                            Register
+                        </Text>
+                        <Text className="text-base text-gray-100 font-quicksand-medium">
+                            Please register to login.
+                        </Text>
+                    </View>
 
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
-            keyboardType="email-address"
-            placeholder="Enter your email"
-          />
+                    <FormField
+                        value={form.username}
+                        handleChangeText={(e) => setForm({ ...form, username: e })}
+                        otherStyles="mb-4"
+                        placeholder="Username"
+                        icon="person-outline"
+                    />
 
-          <FormField
-            title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
-            placeholder="Enter your password"
-          />
+                    <FormField
+                        value={form.mobile}
+                        handleChangeText={(e) => setForm({ ...form, mobile: e })}
+                        otherStyles="mb-4"
+                        keyboardType="phone-pad"
+                        placeholder="Mobile Number"
+                        icon="call-outline"
+                    />
 
-          <CustomButton
-            title="Sign Up"
-            handlePress={submit}
-            containerStyles="mt-7"
-            isLoading={isSubmitting}
-          />
+                    <FormField
+                        value={form.password}
+                        handleChangeText={(e) => setForm({ ...form, password: e })}
+                        otherStyles="mb-4"
+                        placeholder="Password"
+                        icon="lock-closed-outline"
+                        isPassword
+                    />
 
-           <View className="flex-row justify-center items-center mt-6 gap-2">
-            <View className="h-[1px] bg-gray-200 flex-1" />
-            <Text className="text-gray-100 font-quicksand-medium">Or continue with</Text>
-            <View className="h-[1px] bg-gray-200 flex-1" />
-          </View>
+                    <View className="flex-row items-center justify-between mb-8">
+                        <Text className="text-sm text-navy font-quicksand-medium">
+                            Reminder me nexttime
+                        </Text>
+                        <Switch
+                            trackColor={{ false: "#E5E7EB", true: "#131e31" }}
+                            thumbColor={rememberMe ? "#ffffff" : "#f4f3f4"}
+                            ios_backgroundColor="#E5E7EB"
+                            onValueChange={() => setRememberMe(!rememberMe)}
+                            value={rememberMe}
+                        />
+                    </View>
 
-           <CustomButton
-            title="Google"
-            handlePress={() => {}}
-            containerStyles="mt-6 bg-white border-2 border-gray-200"
-            textStyles="text-dark-100"
-            icon={<Ionicons name="logo-google" size={24} color="black" />}
-          />
+                    <CustomButton
+                        title="Sign Up"
+                        handlePress={submit}
+                        containerStyles="mb-6"
+                        isLoading={isSubmitting}
+                    />
 
-          <View className="justify-center pt-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-quicksand-medium">
-              Already have an account?
-            </Text>
-            <Link
-              href="/sign-in"
-              className="text-lg font-quicksand-bold text-primary"
-            >
-              Sign In
-            </Link>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+                    <View className="flex-row justify-center gap-1">
+                        <Text className="text-base text-gray-100 font-quicksand-medium">
+                            Already have account?
+                        </Text>
+                        <Link href="/sign-in" className="text-base font-quicksand-bold text-navy">
+                            Sign In
+                        </Link>
+                    </View>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 export default SignUp;
