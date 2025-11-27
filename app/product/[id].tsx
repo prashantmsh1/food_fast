@@ -5,6 +5,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const burgers = [
     {
@@ -95,11 +96,12 @@ const ProductDetail = () => {
     };
 
     return (
-        <View className="flex-1 bg-primary-green">
+        <SafeAreaView className="flex-1 bg-primary-green">
             <Header
                 leftIcon={images.arrowBack}
                 rightIcon={images.star}
                 rightIconColor="#EF2A39"
+                bgColor="white"
                 onLeftPress={() => router.back()}
             />
 
@@ -176,7 +178,7 @@ const ProductDetail = () => {
                     <Text className="text-lg text-white font-quicksand-bold">Go to Cart</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

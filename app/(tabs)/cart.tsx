@@ -3,7 +3,7 @@ import Header from "@/components/ui/Header";
 import { images } from "@/constants";
 import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useMemo } from "react";
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,14 +13,25 @@ const Cart = () => {
     // Mock data
     const cartItems = items;
 
+    const subTotal = useMemo(() => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    }, [cartItems]);
+
+    const deliveryFee = 3.5;
+    const total = useMemo(() => {
+        return subTotal + deliveryFee;
+    }, [subTotal, deliveryFee]);
     return (
         <SafeAreaView className="flex-1 bg-white">
             <Header
                 title="Cart"
                 leftIcon={images.arrowBack}
                 onLeftPress={() => router.back()}
-                rightIcon={images.plus} // Using plus as 'x' close icon placeholder if needed, or just omit
-                // rightIcon style needed to rotate if using plus as close
+                rightIcon={images.plus}
+                textColor="white"
+                onRightPress={() => router.push("/menu")}
+                bgColor="white"
+                rightIconColor="white"
             />
 
             <ScrollView className="flex-1 px-5 pt-2">
@@ -50,15 +61,21 @@ const Cart = () => {
                 <View className="mb-8 space-y-3">
                     <View className="flex-row justify-between">
                         <Text className="text-black font-quicksand-bold">Subtotal</Text>
-                        <Text className="text-black font-quicksand-bold">$70.00</Text>
+                        <Text className="text-black font-quicksand-bold">
+                            ${subTotal.toFixed(2)}
+                        </Text>
                     </View>
                     <View className="flex-row justify-between pb-3 border-b border-gray-100">
                         <Text className="text-black font-quicksand-bold">Delivery</Text>
-                        <Text className="text-black font-quicksand-bold">$3.50</Text>
+                        <Text className="text-black font-quicksand-bold">
+                            ${deliveryFee.toFixed(2)}
+                        </Text>
                     </View>
                     <View className="flex-row justify-between pt-2">
                         <Text className="text-lg text-black font-quicksand-bold">Total</Text>
-                        <Text className="text-lg text-black font-quicksand-bold">$73.50</Text>
+                        <Text className="text-lg text-black font-quicksand-bold">
+                            ${total.toFixed(2)}
+                        </Text>
                     </View>
                 </View>
             </ScrollView>
